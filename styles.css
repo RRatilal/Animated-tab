@@ -1,0 +1,650 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #01b0db;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu {
+    width: 500px;
+    height: 100px;
+    border-radius: 16px;
+    background-color: #272f41;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.folder,
+.camera,
+.message,
+.qr-code {
+    width: 50px;
+    height: 50px;
+    position: relative;
+}
+
+/* Begin folder */
+.folder {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.folder .front {
+    width: 45px;
+    height: 35px;
+    border-radius: 0 6px 6px;
+    position: absolute;
+    background-color: #9dacc5;
+    transform-origin: bottom;
+    transform: skew(6deg);
+    transition: .8s cubic-bezier(0.74, -0.3, 0, 1.9);
+    z-index: 10;
+    transition: .4s;
+}
+.folder .front.right {
+    transform: skew(-6deg);
+    transition: .4s;
+}
+
+.folder .front::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 5px;
+    top: -5px;
+    border-radius: 6px 0 0;
+    background-color: #9dacc5;
+    transition: .4s;
+}
+.folder .front::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -5px;
+    left: 19.7px;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #9dacc5;
+    transition: .4s;
+}
+
+.folder .files {
+    position: absolute;
+    width: 38px;
+    height: 32px;
+    bottom: 2px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.6);
+    transform: rotateX(-90deg) translateY(-40px);
+    opacity: 0;
+    transition: .5s;
+}
+.folder .files.two {
+    transition-delay: .2s;
+}
+.folder .files.three {
+    transition-delay: .4s;
+}
+
+.folder .back {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    bottom: 1px;
+    border-radius: 6px;
+    transform-origin: bottom;
+    background-color: #414b5f;
+    transition: .8s cubic-bezier(0.74, -0.3, 0, 1.9);
+    transition: .4s;
+    z-index: 1;
+}
+
+.folder:hover {
+    cursor: pointer;
+}
+
+.folder:hover .front {
+    transform: skew(12deg);
+    height: 25px;
+    background-color: #1dc5f1;
+}
+.folder:hover .front.right {
+    transform: skew(-12deg);
+}
+.folder:hover .front::before {
+    background-color: #1dc5f1;
+}
+.folder:hover .front::after {
+    border-bottom-color: #1dc5f1;
+}
+
+.folder:hover .back {
+    height: 35px;
+    transform: skew(4deg);
+    background-color: #138ec7;
+}
+.folder:hover .back.right {
+    transform: skew(-4deg);
+}
+
+.folder:hover .files {
+    transform: rotateX(0deg) translateY(0);
+    opacity: 1;
+    z-index: 2;
+}
+/* End folder */
+
+/* Begin camera */
+.camera {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.camera .top {
+    width: 20px;
+    height: 8px;
+    border-radius: 4px 4px 0 0;
+    background-color: #9dacc5;
+    transition: .4s;
+}
+
+.camera .top .left {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    background-color: #9dacc5;
+    left: 11px;
+    top: 7px;
+    transform: rotate(44deg);
+    transition: .4s;
+}
+.camera .top .left::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 2px;
+    left: -10px;
+    border-radius: 5px;
+    background-color: transparent;
+    box-shadow: 8px 4px #9dacc5;
+    transition: .4s;
+}
+
+.camera .top .right {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    background-color: #9dacc5;
+    right: 11px;
+    top: 7px;
+    transform: rotate(44deg);
+    transition: .4s;
+}
+.camera .top .right::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: -10px;
+    right: -2px;
+    border-radius: 5px;
+    background-color: transparent;
+    box-shadow: 4px 8px #9dacc5;
+    transition: .4s;
+}
+
+.camera .flash1 {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    top: 2px;
+    left: 50%;
+    background-color: #fff;
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+.camera .flash2 {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    top: -3px;
+    left: 50%;
+    background-color: #fff;
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+.camera .flash3 {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    top: -4px;
+    left: 50%;
+    background-color: #fff;
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+.camera .camera-body {
+    width: 100%;
+    height: 35px;
+    border-radius: 6px;
+    background-color: #9dacc5;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .4s;
+}
+
+.camera .camera-body .lens {
+    width: 25px;
+    height: 25px;
+    background-color: #414b5f;
+    border-radius: 15px;
+    transition: .4s;
+}
+
+.camera:hover {
+    cursor: pointer;
+    animation: camera-balance 1.5s;
+}
+
+.camera:hover .top,
+.camera:hover .top .left,
+.camera:hover .top .right,
+.camera:hover .camera-body {
+    background-color: #1dc5f1;
+}
+
+.camera:hover .top .left::before {
+    box-shadow: 8px 4px #1dc5f1;
+}
+.camera:hover .top .right::before {
+    box-shadow: 4px 8px #1dc5f1;
+}
+
+.camera:hover .top .flash1 {
+    animation: flash1 cubic-bezier(0, 0.56, 0.46, 0.8) .2s 5;
+}
+.camera:hover .top .flash2 {
+    animation: flash2 cubic-bezier(0, 0.56, 0.46, 0.8) .3s 5;
+}
+.camera:hover .top .flash2 {
+    animation: flash3 cubic-bezier(0, 0.56, 0.46, 0.8) .3s 5;
+}
+
+.camera:hover .camera-body .lens {
+    background-color: #138ec7;
+}
+
+@keyframes camera-balance {
+    20% {
+        transform: rotate(15deg);
+    }
+    40% {
+        transform: rotate(-15deg);
+    }
+    60% {
+        transform: rotate(15deg);
+    }
+    80% {
+        transform: rotate(-15deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes flash1 {
+    10% {
+        opacity: .8;
+    }
+    20% {
+        opacity: 0;
+    }
+}
+
+@keyframes flash2 {
+    30% {
+        opacity: 1;
+    }
+    40% {
+        opacity: 0;
+    }
+}
+
+@keyframes flash3 {
+    50% {
+        opacity: .1;
+    }
+    60% {
+        opacity: 0;
+    }
+}
+/* End camera */
+
+/* Begin message */
+.message .balloon1 {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    position: relative;
+    background-color: #9dacc5;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1;
+    transform: .4s;
+}
+
+.message .balloon1::before {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 20px;
+    left: 9px;
+    bottom: -1px;
+    background-color: #9dacc5;
+    border-bottom-right-radius: 2px;
+    transform: rotate(53deg);
+    transform: .4s;
+}
+
+.message .dot1,
+.message .dot2,
+.message .dot3 {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background-color: #414b5f;
+    z-index: 2;
+    transform: .4s;
+}
+
+.message .balloon2 {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    position: absolute;
+    top: 2px;
+    background-color: #9de1fe;
+    transform: translateX(5px) scaleX(-1) rotate(25deg);
+    transform: .4s;
+}
+
+.message .balloon2::before {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 10px;
+    left: 9px;
+    bottom: -1px;
+    background-color: #9dacc5;
+    border-bottom-right-radius: 2px;
+    transform: rotate(53deg);
+    transform: .4s;
+}
+
+.message:hover {
+    cursor: pointer;
+}
+
+.message:hover .balloon1,
+.message:hover .balloon1::before {
+    background-color: #1dc5f1;
+}
+
+.message:hover .dot1,
+.message:hover .dot2,
+.message:hover .dot3 {
+    background-color: #138ec7;
+}
+.message:hover .dot1 {
+    animation: dots1 linear .8s 3;
+}
+.message:hover .dot2 {
+    animation: dots2 linear .8s 3 .1s;
+}
+.message:hover .dot3 {
+    animation: dots3 linear .8s 3 .18s;
+}
+
+.message:hover .balloon2 {
+    animation: balloon cubic-bezier(1,-0.01, 0, 1.03) 3s;
+}
+
+@keyframes balloon {
+    16% {
+        transform: translateX(20px) scaleX(-1) rotate(25deg);
+    }
+    32% {
+        transform: translateX(8px) scaleX(-1) rotate(25deg) translateY(12px);
+    }
+    48% {
+        transform: translateX(20px) scaleX(-1) rotate(25deg);
+    }
+    64% {
+        transform: translateX(8px) scaleX(-1) rotate(25deg) translateY(12px);
+    }
+    80% {
+        transform: translateX(20px) scaleX(-1) rotate(25deg);
+    }
+    100% {
+        transform: translateX(8px) scaleX(-1) rotate(25deg);
+    }
+}
+
+@keyframes dots1 {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes dots2 {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes dots3 {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+/* End message */
+
+/* Begin qr-code */
+.qr-code {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 5px;
+}
+
+.qr-code::before {
+    content: "";
+    position: absolute;
+    width: 76%;
+    height: 2px;
+    top: 50%;
+    left: 50%;
+    transform:  translate(-50%, -50%) scaleX(0);
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: .2s linear;
+}
+
+.qr-code .square {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    background-color: #9dacc5;
+    transition: .2s linear;
+}
+
+.qr-code .square.one {
+    justify-self: end;
+    align-self: flex-end;
+}
+.qr-code .square.one::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px 0;
+    border-top: 2px solid;
+    border-left: 2px solid;
+    border-color: #9dacc5 transparent transparent #9dacc5;
+    top: 3px;
+    left: 4px;
+    transition: .2s linear;
+}
+
+.qr-code .square.two {
+    justify-self: start;
+    align-self: flex-end;
+}
+.qr-code .square.two::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 0 8px;
+    border-top: 2px solid;
+    border-right: 2px solid;
+    border-color: #9dacc5 #9dacc5 transparent transparent;
+    top: 3px;
+    right: 4px;
+    transition: .2s linear;
+}
+
+.qr-code .square.three {
+    justify-self: end;
+}
+.qr-code .square.three::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 0 8px;
+    border-bottom: 2px solid;
+    border-left: 2px solid;
+    border-color: transparent transparent #9dacc5 #9dacc5;
+    bottom: 3px;
+    left: 4px;
+    transition: .2s linear;
+}
+
+.qr-code .square.four {
+    background-color: #414b5f;
+}
+.qr-code .square.four::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px 0;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+    border-color: transparent #9dacc5 #9dacc5 transparent;
+    bottom: 3px;
+    right: 4px;
+    transition: .2s linear;
+}
+
+.qr-code:hover {
+    cursor: pointer;
+}
+
+.qr-code:hover::before {
+    transform:  translate(-50%, -50%) scaleX(1);
+    animation: qr-code linear 2.5s;
+}
+
+.qr-code:hover .square {
+    background-color: #1dc5f1;
+}
+
+.qr-code:hover .square.one::before {
+    top: 0;
+    left: 0;
+    border-color: #138ec7 transparent transparent #138ec7;
+}
+
+.qr-code:hover .square.two::before {
+    top: 0;
+    right: 0;
+    border-color: #138ec7 #138ec7 transparent transparent;
+}
+
+.qr-code:hover .square.three::before {
+    bottom: 0;
+    left: 0;
+    border-color: transparent transparent #138ec7 #138ec7;
+}
+
+.qr-code:hover .square.four::before {
+    bottom: 0;
+    right: 0;
+    border-color: transparent #138ec7 #138ec7 transparent;
+}
+
+@keyframes qr-code {
+    16.66% {
+        top: 50%;
+    }
+    33.33% {
+        top: 10%;
+    }
+    50% {
+        top: 80%;
+    }
+    60.66% {
+        top: 10%;
+    }
+    83.33% {
+        top: 80%;
+    }
+    100% {
+        top: 50%;
+    }
+}
+/* End qr-code */
